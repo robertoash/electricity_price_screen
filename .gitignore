@@ -1,0 +1,5 @@
+*.DS_Store
+*secrets.py
+*secrets.h
+*sftp*
+*/__pycache__/*
