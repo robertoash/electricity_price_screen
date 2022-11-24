@@ -38,6 +38,10 @@ Some of the requirements ont he software side. Other solutions might be availabl
 
 There are two main sets of files that are needed to get the screen working. They are stored in the two folders within this repo.
 
+### Images
+
+A folder that contains the images for this README file. Nothing that is needed for the project.
+
 ### Arduino Files
 
 This folder contains the sketch folder that needs to be imported into the Arduino IDE. Inside there is a file called `arduino_secrets.h.example` that should be filled in with the relevant WiFi information and then renamed to `arduino_secrets.h`.
