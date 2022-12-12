@@ -25,15 +25,12 @@
 #include "WiFi.h"                //Include library for WiFi
 #include "driver/rtc_io.h"       //ESP32 library used for deep sleep and RTC wake up pins
 #include "ezTime.h"              //Library to handle time and timezones
-#include "arduino_secrets.h"             //Secrets file to store WiFi info
+#include "arduino_secrets.h"     //Secrets file to store WiFi info
 
 Inkplate display(INKPLATE_3BIT); // Create an object on Inkplate library and also set library into 1 Bit mode (BW)
 
 const char ssid[] = SECRET_SSID;
 const char *password = SECRET_PASS;
-
-// Add your MQTT Broker IP address, example:
-const char* mqtt_server = "192.168.1.100";
 
 Timezone Stockholm;
 
@@ -153,71 +150,6 @@ void print_wakeup_reason(){
         default: Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
     }
 }
-
-/*
-void report_battery_mqtt()
-{
-
-    Serial.println("Reporting battery to MQTT...");
-
-    // Connect to MQTT
-    WiFiClient espClient;
-    PubSubClient client(espClient);
-    client.setServer(mqtt_server, 1883);
-
-    int connect_retries = 0;
-
-    while (!client.connected() && connect_retries <= 10) {
-        connect_retries++;
-        Serial.print("Attempting MQTT connection...");
-        // Attempt to connect
-        if (client.connect("InkplateClient", "mqtt", "1979198229")) {
-            Serial.println("MQTT Connected...");
-        } else {
-            Serial.print("failed on attempt No. ");
-            Serial.print(connect_retries);
-            Serial.print(" with reason code ");
-            Serial.print(client.state());
-            Serial.println(". Trying again in 5 seconds...");
-            // Wait 5 seconds before retrying
-            delay(5000);
-        }
-    }
-
-    if (client.connected()) {
-        client.loop();
-    } else {
-        Serial.print("Could not connect to MQTT Server...");
-        return;
-    }
-
-    int temperature;
-    float voltage;
-
-    // Read temperature from on-board temperature sensor
-    temperature = display.readTemperature();
-
-    // Convert the value to a char array
-    char tempString[8];
-    dtostrf(temperature, 1, 2, tempString);
-    Serial.print("Temperature: ");
-    Serial.println(tempString);
-    client.publish("devices/inkplate_tibber/temperature", tempString, true);
-
-    // Read battery voltage
-    voltage = display.readBattery();
-
-    // Convert the value to a char array
-    char voltageString[8];
-    dtostrf(voltage, 1, 2, voltageString);
-    Serial.print("Voltage: ");
-    Serial.println(voltageString);
-    client.publish("devices/inkplate_tibber/voltage", voltageString, true);
-
-
-    Serial.println("Battery reported...");
-}
-*/
 
 void setup()
 {
